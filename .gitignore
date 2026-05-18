@@ -1,0 +1,33 @@
+# 微信小程序编译产物
+/dist
+
+# 微信开发者工具缓存
+/.project
+/.sourcemaps/
+
+# node_modules（如果有）
+node_modules/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+
+# 微信小程序上传密钥（敏感文件不要上传）
+*.key
+apiclient*.pem
+
+# IDE 配置
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 临时文件
+*.tmp
+*.temp

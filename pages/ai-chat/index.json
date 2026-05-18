@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "综评小助手",
+  "usingComponents": {
+    "ai-chat-box": "../../components/ai-chat-box/ai-chat-box"
+  }
+}

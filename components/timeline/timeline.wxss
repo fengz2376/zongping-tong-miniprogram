@@ -1,0 +1,375 @@
+.timeline {
+  position: relative;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 24rpx;
+  position: relative;
+}
+
+.timeline-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.timeline-dot {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.dot-completed {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(34, 197, 94, 0.25);
+}
+
+.dot-current {
+  color: #ffffff;
+}
+
+.dot-current::after {
+  content: '';
+  position: absolute;
+  top: -8rpx;
+  left: -8rpx;
+  right: -8rpx;
+  bottom: -8rpx;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.dot-current-blue {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  box-shadow: 0 4rpx 16rpx rgba(99, 102, 241, 0.35);
+}
+
+.dot-current-blue::after {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+.dot-current-purple {
+  background: linear-gradient(135deg, #a855f7, #c084fc);
+  box-shadow: 0 4rpx 16rpx rgba(168, 85, 247, 0.35);
+}
+
+.dot-current-purple::after {
+  background: rgba(168, 85, 247, 0.2);
+}
+
+.dot-current-red {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  box-shadow: 0 4rpx 16rpx rgba(239, 68, 68, 0.35);
+}
+
+.dot-current-red::after {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.dot-current-orange {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  box-shadow: 0 4rpx 16rpx rgba(249, 115, 22, 0.35);
+}
+
+.dot-current-orange::after {
+  background: rgba(249, 115, 22, 0.2);
+}
+
+.dot-current-green {
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+  box-shadow: 0 4rpx 16rpx rgba(34, 197, 94, 0.35);
+}
+
+.dot-current-green::after {
+  background: rgba(34, 197, 94, 0.2);
+}
+
+.dot-current-yellow {
+  background: linear-gradient(135deg, #eab308, #facc15);
+  box-shadow: 0 4rpx 16rpx rgba(234, 179, 8, 0.35);
+}
+
+.dot-current-yellow::after {
+  background: rgba(234, 179, 8, 0.2);
+}
+
+.dot-current-pink {
+  background: linear-gradient(135deg, #ec4899, #f472b6);
+  box-shadow: 0 4rpx 16rpx rgba(236, 72, 153, 0.35);
+}
+
+.dot-current-pink::after {
+  background: rgba(236, 72, 153, 0.2);
+}
+
+.dot-upcoming {
+  background: #eef0f6;
+  color: #a0a3bd;
+  border: 2rpx dashed #d1d5e0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.timeline-line {
+  width: 0;
+  min-height: 48rpx;
+  flex: 1;
+  border-left: 4rpx dashed;
+}
+
+.line-completed {
+  border-color: #86efac;
+  border-left-style: solid;
+  border-left-width: 4rpx;
+  background: linear-gradient(180deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.02));
+}
+
+.line-upcoming {
+  border-color: #d1d5e0;
+}
+
+.timeline-right {
+  flex: 1;
+  padding-bottom: 40rpx;
+}
+
+.opacity-half {
+  opacity: 0.5;
+}
+
+.phase-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  letter-spacing: 0.5rpx;
+}
+
+.title-completed {
+  color: #15803d;
+}
+
+.title-current-blue {
+  color: #4f46e5;
+}
+
+.title-current-purple {
+  color: #7c3aed;
+}
+
+.title-current-red {
+  color: #dc2626;
+}
+
+.title-current-orange {
+  color: #c2410c;
+}
+
+.title-current-green {
+  color: #15803d;
+}
+
+.title-current-yellow {
+  color: #a16207;
+}
+
+.title-current-pink {
+  color: #be185d;
+}
+
+.title-upcoming {
+  color: #a0a3bd;
+}
+
+.phase-date {
+  display: block;
+  font-size: 24rpx;
+  margin-top: 4rpx;
+}
+
+.phase-desc {
+  display: block;
+  font-size: 28rpx;
+  margin-top: 8rpx;
+}
+
+.phase-tasks {
+  margin-top: 24rpx;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  border: 1rpx solid transparent;
+}
+
+.phase-tasks-blue {
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  border-color: rgba(99, 102, 241, 0.1);
+}
+
+.phase-tasks-purple {
+  background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+  border-color: rgba(168, 85, 247, 0.1);
+}
+
+.phase-tasks-red {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border-color: rgba(239, 68, 68, 0.1);
+}
+
+.phase-tasks-orange {
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  border-color: rgba(249, 115, 22, 0.1);
+}
+
+.phase-tasks-green {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border-color: rgba(34, 197, 94, 0.1);
+}
+
+.phase-tasks-yellow {
+  background: linear-gradient(135deg, #fefce8, #fef9c3);
+  border-color: rgba(234, 179, 8, 0.1);
+}
+
+.phase-tasks-pink {
+  background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+  border-color: rgba(236, 72, 153, 0.1);
+}
+
+.tasks-label {
+  font-size: 24rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  margin-bottom: 14rpx;
+}
+
+.task-item:last-child {
+  margin-bottom: 0;
+}
+
+.task-checkbox {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 12rpx;
+  border: 2rpx solid #d1d5e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+  transition: all 0.2s ease;
+  background: #ffffff;
+}
+
+.checkbox-inner {
+  width: 22rpx;
+  height: 22rpx;
+  border-radius: 6rpx;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.checkbox-inner.checked {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+.task-text {
+  font-size: 28rpx;
+  color: #2d3047;
+  line-height: 1.6;
+}
+
+.task-done {
+  text-decoration: line-through;
+  color: #a0a3bd;
+}
+
+.task-tips {
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid rgba(0, 0, 0, 0.04);
+}
+
+.phase-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 14rpx;
+  border-radius: 16rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.phase-tag-blue {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.phase-tag-purple {
+  background: #faf5ff;
+  color: #7c3aed;
+}
+
+.phase-tag-red {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.phase-tag-orange {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.phase-tag-green {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.phase-tag-yellow {
+  background: #fefce8;
+  color: #a16207;
+}
+
+.phase-tag-pink {
+  background: #fdf2f8;
+  color: #be185d;
+}
+
+.countdown-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 18rpx;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  color: #4f46e5;
+  letter-spacing: 0.5rpx;
+}

@@ -1,0 +1,135 @@
+<view class="page-container" wx:if="{{uni}}">
+  <view class="hero-section">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <text class="hero-logo">{{uni.logo}}</text>
+      <view class="hero-info">
+        <view class="hero-name-row">
+          <text class="hero-name">{{uni.name}}</text>
+          <text class="tag {{uni.type === '985' ? 'tag-orange' : uni.type === '211' ? 'tag-blue' : 'tag-green'}}">{{uni.type}}</text>
+        </view>
+        <text class="hero-motto">「{{uni.motto}}」</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="overview-card">
+    <view class="section-header">
+      <text class="section-icon">📖</text>
+      <text class="section-title">学校概况</text>
+    </view>
+    <text class="overview-text">{{uni.overview}}</text>
+    <view class="meta-row">
+      <view class="meta-item" bindtap="copyLocation">
+        <text class="meta-icon">📍</text>
+        <text class="meta-text">{{uni.location}}</text>
+      </view>
+      <view class="meta-item" bindtap="openWebsite">
+        <text class="meta-icon">🌐</text>
+        <text class="meta-text meta-link">官网</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="interview-card">
+    <view class="section-header">
+      <text class="section-icon">🎯</text>
+      <text class="section-title">面试信息</text>
+    </view>
+    <view class="interview-grid">
+      <view class="interview-cell">
+        <text class="interview-label">面试形式</text>
+        <text class="interview-value">{{uni.interviewForm}}</text>
+      </view>
+      <view class="interview-cell">
+        <text class="interview-label">面试时长</text>
+        <text class="interview-value">{{uni.interviewDuration}}</text>
+      </view>
+      <view class="interview-cell">
+        <text class="interview-label">面试模式</text>
+        <text class="interview-value">{{uni.interviewMode}}</text>
+      </view>
+      <view class="interview-cell">
+        <text class="interview-label">校测满分</text>
+        <text class="interview-value">{{uni.interviewFullScore}}分</text>
+      </view>
+    </view>
+    <view class="pref-box">
+      <text class="pref-label">招生偏好</text>
+      <text class="pref-text">{{uni.preferences}}</text>
+    </view>
+    <view class="feature-tags">
+      <text wx:for="{{uni.features}}" wx:key="index" class="tag tag-purple" style="font-size: 22rpx;">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="scores-card">
+    <view class="section-header">
+      <text class="section-icon">📊</text>
+      <text class="section-title">历年分数线</text>
+    </view>
+    <view class="score-table">
+      <view class="score-table-header">
+        <text class="score-th">年份</text>
+        <text class="score-th">最低入围</text>
+        <text class="score-th">平均分</text>
+      </view>
+      <view wx:for="{{admissionLinesList}}" wx:key="year" class="score-table-row">
+        <text class="score-td score-year-text">{{item.year}}</text>
+        <text class="score-td score-highlight">{{item.minScore || item.note}}</text>
+        <text class="score-td">{{item.avgScore || '-'}}</text>
+      </view>
+    </view>
+    <text class="score-note">数据来源：各校官方公布，仅供参考</text>
+  </view>
+
+  <view class="majors-card">
+    <view class="section-header">
+      <text class="section-icon">🎓</text>
+      <text class="section-title">专业组与专业</text>
+    </view>
+    <view class="major-groups">
+      <view wx:for="{{uni.majorGroups}}" wx:key="code" class="major-group">
+        <view class="group-header" bindtap="toggleGroup" data-idx="{{index}}">
+          <view class="group-left">
+            <text class="group-code">{{item.code}}</text>
+            <text class="group-name">{{item.group}}</text>
+          </view>
+          <view class="group-right">
+            <text class="group-score">{{item.score2025}}分</text>
+            <text class="group-score-label">2025</text>
+            <text class="group-arrow {{expandedGroups[index] ? 'group-arrow-open' : ''}}">▶</text>
+          </view>
+        </view>
+        <view wx:if="{{expandedGroups[index]}}" class="group-body">
+          <view class="group-scores-row">
+            <view class="group-score-item group-score-latest">
+              <text class="gs-year">2025</text>
+              <text class="gs-value">{{item.score2025}}</text>
+            </view>
+            <view class="group-score-item">
+              <text class="gs-year">2024</text>
+              <text class="gs-value">{{item.score2024}}</text>
+            </view>
+            <view class="group-score-item">
+              <text class="gs-year">2023</text>
+              <text class="gs-value">{{item.score2023}}</text>
+            </view>
+            <view class="group-score-item">
+              <text class="gs-year">2022</text>
+              <text class="gs-value">{{item.score2022}}</text>
+            </view>
+          </view>
+          <view class="major-list">
+            <view wx:for="{{item.majors}}" wx:for-item="major" wx:for-index="mi" wx:key="mi" class="major-item">
+              <text class="major-dot">•</text>
+              <text class="major-name">{{major}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 60rpx;"></view>
+</view>

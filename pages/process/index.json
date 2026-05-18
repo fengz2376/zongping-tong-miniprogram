@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "综评流程",
+  "usingComponents": {
+    "timeline": "../../components/timeline/timeline"
+  }
+}

@@ -1,0 +1,39 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">综评小助手</text>
+    <text class="page-subtitle">AI智能问答，解答一切综评疑问</text>
+  </view>
+
+  <view class="hint-card">
+    <view class="hint-card-inner">
+      <text class="hint-text">💡 你可以问我：综评报名流程、各校面试形式、综合分怎么算、个人陈述怎么写、XX大学面试难吗……</text>
+    </view>
+  </view>
+
+  <view class="quick-questions">
+    <view class="quick-q-btn" bindtap="onQuickQuestion" data-q="综评报名流程是什么？">
+      <text class="quick-q-icon">📋</text>
+      <text class="quick-q-text">报名流程</text>
+    </view>
+    <view class="quick-q-btn" bindtap="onQuickQuestion" data-q="综合分怎么算？">
+      <text class="quick-q-icon">🧮</text>
+      <text class="quick-q-text">综合分计算</text>
+    </view>
+    <view class="quick-q-btn" bindtap="onQuickQuestion" data-q="个人陈述怎么写？">
+      <text class="quick-q-icon">📝</text>
+      <text class="quick-q-text">个人陈述</text>
+    </view>
+    <view class="quick-q-btn" bindtap="onQuickQuestion" data-q="面试有哪些技巧？">
+      <text class="quick-q-icon">🎤</text>
+      <text class="quick-q-text">面试技巧</text>
+    </view>
+  </view>
+
+  <ai-chat-box
+    id="chatBox"
+    placeholder="输入你的综评问题..."
+    systemPrompt="{{systemPrompt}}"
+    headerTitle="综评小助手"
+    showHeader="{{true}}"
+  ></ai-chat-box>
+</view>

@@ -1,0 +1,110 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">综合分计算器</text>
+    <text class="page-subtitle">精算综合成绩，逆袭从现在开始规划</text>
+  </view>
+
+  <view class="card formula-card">
+    <view class="flex items-center" style="margin-bottom: 12rpx;">
+      <view class="formula-icon">📐</view>
+      <text class="formula-label">计算公式</text>
+    </view>
+    <text class="formula-text">综合成绩 = 高考成绩÷660×850 + 校测成绩（满分150分）</text>
+    <text class="formula-tip">💡 面试1分 ≈ 高考5.7分</text>
+  </view>
+
+  <view class="card">
+    <text class="card-label">输入你的成绩</text>
+    <view class="form-group">
+      <text class="form-label">预估/实际高考分数（满分660）</text>
+      <input
+        class="input-field score-input"
+        type="digit"
+        value="{{gaokaoScore}}"
+        bindinput="onGaokaoInput"
+        placeholder="输入高考分，如：580"
+      />
+    </view>
+    <view class="form-group">
+      <text class="form-label">预估校测面试分数（满分150，选填）</text>
+      <input
+        class="input-field"
+        type="digit"
+        value="{{interviewScore}}"
+        bindinput="onInterviewInput"
+        placeholder="输入预估面试分，如：120"
+      />
+    </view>
+  </view>
+
+  <view wx:if="{{result}}" class="card result-card">
+    <view class="result-center">
+      <text class="result-label">综 合 成 绩</text>
+      <text class="result-score">{{result.comprehensiveScore}}</text>
+      <text class="result-total">满分 1000 分</text>
+    </view>
+    <view class="result-breakdown">
+      <view class="result-item">
+        <text class="result-item-label">高考转换分</text>
+        <text class="result-item-value">{{result.gaokaoConverted}}</text>
+        <text class="result-item-sub">/850</text>
+      </view>
+      <view class="result-item">
+        <text class="result-item-label">校测面试分</text>
+        <text class="result-item-value">{{result.interviewScoreRaw}}</text>
+        <text class="result-item-sub">/150</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="card-label">对比历年入围线</text>
+    <picker mode="selector" range="{{universityNames}}" bindchange="onTargetUniChange">
+      <view class="input-field picker-field">
+        <text class="{{selectedUniName ? '' : 'placeholder'}}">{{selectedUniName || '选择目标高校'}}</text>
+        <text class="picker-arrow">▼</text>
+      </view>
+    </picker>
+
+    <view wx:if="{{analysis}}" class="analysis-section">
+      <view class="analysis-grid">
+        <view class="analysis-item">
+          <text class="analysis-item-label">最低入围线（{{analysis.latestYear}}）</text>
+          <text class="analysis-item-value">{{analysis.minScore}}</text>
+        </view>
+        <view class="analysis-item">
+          <text class="analysis-item-label">平均入围线（{{analysis.latestYear}}）</text>
+          <text class="analysis-item-value">{{analysis.avgScore}}</text>
+        </view>
+      </view>
+
+      <view class="comeback-card">
+        <view class="flex items-center" style="margin-bottom: 16rpx;">
+          <view class="comeback-icon">🎯</view>
+          <text class="comeback-label">逆袭分析</text>
+        </view>
+        <text class="comeback-text">你的综合分需要达到约 <text class="comeback-highlight">{{analysis.targetScore}}</text> 分（超过年均线10分）才较有把握。</text>
+        <text class="comeback-text">你需要面试考到至少 <text class="text-primary font-bold" style="font-size: 32rpx;">{{analysis.requiredInterview}}</text> 分（满分150分）</text>
+        <text wx:if="{{analysis.requiredInterviewNum > 150}}" class="comeback-warning">⚠️ 所需面试分超过满分，建议调整目标高校或尽可能提升高考分</text>
+      </view>
+
+      <text class="text-gray-500" style="font-size: 24rpx; display: block; margin-top: 16rpx;">历年数据仅供参考，实际入围线以当年公布为准。</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="flex items-center justify-between" bindtap="toggleComparison">
+      <text class="card-label" style="margin-bottom: 0;">多校对比</text>
+      <text class="text-gray-400" style="font-size: 24rpx;">{{showComparison ? '收起 ▲' : '展开 ▼'}}</text>
+    </view>
+    <view wx:if="{{showComparison}}" class="comparison-list">
+      <view wx:for="{{comparisonData}}" wx:key="id" class="comparison-item">
+        <view class="comparison-info" style="flex: 1;">
+          <text class="comparison-name">{{item.shortName}}<text class="{{item.type === '985' ? 'type-985' : 'type-211'}}" style="font-size: 20rpx; margin-left: 8rpx;">{{item.type}}</text></text>
+          <text class="comparison-detail text-gray-400">入围线 {{item.minScore}} | 需面试 {{item.requiredText}}</text>
+        </view>
+        <text class="tag {{item.difficultyTag}}">{{item.difficulty}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,170 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">综评资料库</text>
+    <text class="page-subtitle">政策、简章、面经一站式查阅</text>
+  </view>
+
+  <view class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input
+      class="search-input"
+      value="{{searchTerm}}"
+      bindinput="onSearch"
+      placeholder="搜索高校、政策、问题..."
+    />
+  </view>
+
+  <view class="tab-bar">
+    <scroll-view scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="tab-bar-inner">
+        <view
+          wx:for="{{tabs}}"
+          wx:key="id"
+          class="tab-item {{tab === item.id ? 'tab-active' : ''}}"
+          bindtap="switchTab"
+          data-tab="{{item.id}}"
+        >
+          <text>{{item.label}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{tab === 'universities'}}">
+    <scroll-view class="filter-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="filter-tags">
+        <view
+          class="filter-tag {{filterUni === 'all' ? 'filter-active' : ''}}"
+          bindtap="setFilterUni"
+          data-uni="all"
+        >
+          <text>全部</text>
+        </view>
+        <view
+          wx:for="{{universities}}"
+          wx:key="id"
+          class="filter-tag {{filterUni === item.id ? 'filter-active' : ''}}"
+          bindtap="setFilterUni"
+          data-uni="{{item.id}}"
+        >
+          <text>{{item.shortName}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="space-y">
+      <view wx:for="{{filteredUnis}}" wx:key="id" class="uni-card" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="uni-card-stripe stripe-{{item.stripeColor || 'indigo'}}"></view>
+        <view class="uni-card-inner">
+          <view class="uni-header">
+            <text class="uni-logo">{{item.logo}}</text>
+            <view class="uni-header-text">
+              <view class="uni-name-row">
+                <text class="uni-name">{{item.name}}</text>
+                <text class="tag {{item.type === '985' ? 'tag-orange' : 'tag-blue'}}" style="font-size: 20rpx;">{{item.type}}</text>
+              </view>
+              <text class="uni-motto">「{{item.motto}}」</text>
+            </view>
+            <text class="uni-arrow">▶</text>
+          </view>
+          <view class="info-grid">
+            <view class="info-cell">
+              <text class="info-label">面试形式：</text>
+              <text class="info-value">{{item.interviewForm}}</text>
+            </view>
+            <view class="info-cell">
+              <text class="info-label">面试时长：</text>
+              <text class="info-value">{{item.interviewDuration}}</text>
+            </view>
+            <view class="info-cell full-width">
+              <text class="info-label">面试模式：</text>
+              <text class="info-value">{{item.interviewMode}}</text>
+            </view>
+            <view class="info-cell full-width">
+              <text class="info-label">招生偏好：</text>
+              <text class="info-value">{{item.preferences}}</text>
+            </view>
+          </view>
+          <view class="uni-tags">
+            <text wx:for="{{item.features}}" wx:for-item="f" wx:for-index="fi" wx:key="fi" class="tag tag-purple" style="font-size: 20rpx;">{{f}}</text>
+          </view>
+          <view class="uni-card-footer">
+            <text class="uni-card-hint">点击查看专业组、分数线等详情</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{tab === 'policies'}}">
+    <view class="space-y">
+      <view class="policy-card">
+        <text class="policy-title">2026年综评报名条件</text>
+        <view class="list-item"><text class="list-dot">•</text><text style="font-size: 28rpx; color: #4a4d64;">具有上海市高考报名资格的考生</text></view>
+        <view class="list-item"><text class="list-dot">•</text><text style="font-size: 28rpx; color: #4a4d64;">完成2026年上海市普通高中学业水平考试</text></view>
+        <view class="list-item"><text class="list-dot">•</text><text style="font-size: 28rpx; color: #4a4d64;">综合素质评价信息完整（含典型事例和研究性学习报告）</text></view>
+        <view class="list-item"><text class="list-dot">•</text><text style="font-size: 28rpx; color: #4a4d64;">符合各高校具体专业选考科目要求</text></view>
+      </view>
+
+      <view class="policy-card">
+        <text class="policy-title">选拔流程</text>
+        <view class="list-item"><text class="list-num">1.</text><text style="font-size: 28rpx; color: #4a4d64;">网上报名：5月12日-30日，登录阳光高考平台</text></view>
+        <view class="list-item"><text class="list-num">2.</text><text style="font-size: 28rpx; color: #4a4d64;">高校初审：6月3日公布初审通过名单</text></view>
+        <view class="list-item"><text class="list-num">3.</text><text style="font-size: 28rpx; color: #4a4d64;">参加高考：6月7日-9日</text></view>
+        <view class="list-item"><text class="list-num">4.</text><text style="font-size: 28rpx; color: #4a4d64;">高考出分：6月23日</text></view>
+        <view class="list-item"><text class="list-num">5.</text><text style="font-size: 28rpx; color: #4a4d64;">志愿填报：6月27日-7月1日填报综评批次（限1所）</text></view>
+        <view class="list-item"><text class="list-num">6.</text><text style="font-size: 28rpx; color: #4a4d64;">校测入围：各校公布入围名单</text></view>
+        <view class="list-item"><text class="list-num">7.</text><text style="font-size: 28rpx; color: #4a4d64;">校测面试：7月6日-7日</text></view>
+        <view class="list-item"><text class="list-num">8.</text><text style="font-size: 28rpx; color: #4a4d64;">录取公布：7月10日-15日</text></view>
+      </view>
+
+      <view class="policy-card">
+        <text class="policy-title">录取规则</text>
+        <view class="formula-box">
+          <text class="formula-main">综合成绩 = 高考成绩÷660×850 + 校测成绩</text>
+          <text class="formula-sub">高考占85% · 校测满分150分 · 总分1000分</text>
+        </view>
+        <view class="list-item"><text class="list-dot">•</text><text style="font-size: 28rpx; color: #4a4d64;">按综合成绩从高到低排序录取</text></view>
+        <view class="list-item"><text class="list-dot">•</text><text style="font-size: 28rpx; color: #4a4d64;">综评批次在普通批次之前录取</text></view>
+        <view class="list-item"><text class="list-dot">•</text><text style="font-size: 28rpx; color: #4a4d64;">未被录取自动进入普通批次</text></view>
+        <view class="list-item"><text class="list-dot">•</text><text style="font-size: 28rpx; color: #4a4d64;">面试1分大约相当于高考5.7分</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{tab === 'lines'}}">
+    <view class="space-y">
+      <view wx:for="{{universities}}" wx:key="id" class="line-card">
+        <view class="line-header">
+          <text class="uni-name">{{item.name}}</text>
+          <text class="tag {{item.type === '985' ? 'tag-orange' : 'tag-blue'}}" style="font-size: 20rpx;">{{item.type}}</text>
+        </view>
+        <view class="score-grid">
+          <view wx:for="{{item.admissionLinesList}}" wx:for-item="line" wx:for-index="year" wx:key="year" class="score-item">
+            <text class="score-year">{{line.year}}</text>
+            <text class="score-value">{{line.minScore}}</text>
+            <text class="score-label">最低入围</text>
+          </view>
+        </view>
+        <text class="score-note">数据来源：各校官方公布，仅供参考</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{tab === 'faq'}}">
+    <view class="space-y">
+      <view wx:for="{{filteredFAQ}}" wx:key="index" class="faq-card">
+        <view class="faq-header" bindtap="toggleFAQ" data-index="{{index}}">
+          <view class="faq-q-wrap">
+            <text class="faq-q-icon">Q</text>
+            <text class="faq-q-text">{{item.q}}</text>
+          </view>
+          <text class="faq-arrow {{item.open ? 'faq-arrow-open' : ''}}">▶</text>
+        </view>
+        <view wx:if="{{item.open}}" class="faq-body">
+          <text class="faq-a-text">{{item.a}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

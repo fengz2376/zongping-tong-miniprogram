@@ -1,0 +1,62 @@
+<view class="chat-box">
+  <view wx:if="{{showHeader}}" class="chat-header">
+    <text class="chat-header-title">{{headerTitle}}</text>
+    <text class="chat-header-sub">基于DeepSeek大语言模型</text>
+  </view>
+
+  <scroll-view
+    class="chat-messages"
+    scroll-y
+    scroll-into-view="{{scrollToId}}"
+    scroll-with-animation
+    enhanced
+    show-scrollbar="{{false}}"
+  >
+    <view wx:if="{{messages.length === 0}}" class="chat-empty">
+      <view class="chat-empty-icon">💬</view>
+      <text class="chat-empty-text">开始对话吧～</text>
+    </view>
+
+    <view wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}">
+      <view class="msg-row {{item.role === 'user' ? 'msg-right' : 'msg-left'}}">
+        <view class="msg-bubble {{item.role === 'user' ? 'bubble-user' : 'bubble-assistant'}}">
+          <text class="msg-text {{item.role === 'user' ? 'msg-text-user' : 'msg-text-assistant'}}">{{item.content}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{isLoading}}" class="msg-left">
+      <view class="bubble-assistant loading-bubble">
+        <view class="loading-dots">
+          <view class="loading-dot"></view>
+          <view class="loading-dot"></view>
+          <view class="loading-dot"></view>
+        </view>
+      </view>
+    </view>
+
+    <view id="msg-bottom"></view>
+  </scroll-view>
+
+  <view class="chat-input-bar">
+    <view class="input-wrapper">
+      <input
+        class="chat-input"
+        value="{{input}}"
+        bindinput="onInput"
+        bindconfirm="onSend"
+        confirm-type="send"
+        placeholder="{{placeholder}}"
+        disabled="{{isLoading}}"
+        adjust-position="{{true}}"
+      />
+    </view>
+    <button
+      class="send-btn {{(!input || isLoading) ? 'send-btn-disabled' : ''}}"
+      bindtap="onSend"
+      disabled="{{!input || isLoading}}"
+    >
+      <text class="send-icon {{(!input || isLoading) ? 'send-icon-disabled' : ''}}">➤</text>
+    </button>
+  </view>
+</view>

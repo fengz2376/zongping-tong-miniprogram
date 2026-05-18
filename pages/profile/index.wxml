@@ -1,0 +1,151 @@
+<view class="page-container">
+  <view class="profile-header">
+    <view class="avatar">
+      <text class="avatar-icon">🎓</text>
+    </view>
+    <view class="profile-info">
+      <text class="profile-name">综评考生</text>
+      <text class="profile-desc">上海高考综评AI助手</text>
+    </view>
+  </view>
+
+  <view class="card api-section">
+    <view class="section-header">
+      <text class="section-icon">🔑</text>
+      <text class="section-title">DeepSeek API 配置</text>
+    </view>
+    <text class="section-desc">配置 API Key 后可使用 AI 生成个人陈述、面试模拟、智能问答等功能。未配置时将使用内置模板回复。</text>
+
+    <view class="api-key-row">
+      <input
+        class="api-key-input"
+        value="{{apiKey}}"
+        bindinput="onApiKeyInput"
+        placeholder="输入 DeepSeek API Key"
+        password="{{!showKey}}"
+      />
+      <view class="eye-btn" bindtap="toggleShowKey">
+        <text>{{showKey ? '🙈' : '👁️'}}</text>
+      </view>
+    </view>
+
+    <button class="btn-primary save-btn" bindtap="saveApiKey" disabled="{{!apiKey}}">
+      <text style="color: #fff;">保存 API Key</text>
+    </button>
+
+    <view wx:if="{{apiReady}}" class="key-status status-ok">
+      <text class="status-dot dot-green"></text>
+      <text class="status-text">AI增强模式已开启 ✨</text>
+      <view class="test-btn" bindtap="testConnection">
+        <text class="test-btn-text">{{isTesting ? '测试中...' : '重新测试'}}</text>
+      </view>
+    </view>
+    <view wx:elif="{{hasKey}}" class="key-status status-warn">
+      <text class="status-dot dot-yellow"></text>
+      <text class="status-text">Key已保存，请点击测试连接以启用AI</text>
+      <view class="test-btn test-btn-primary" bindtap="testConnection">
+        <text class="test-btn-text-primary">{{isTesting ? '测试中...' : '测试连接'}}</text>
+      </view>
+    </view>
+    <view wx:else class="key-status status-none">
+      <text class="status-dot dot-gray"></text>
+      <text class="status-text">未配置，AI功能使用本地模板回复</text>
+    </view>
+
+    <view wx:if="{{testResult}}" class="test-result {{testResult.success ? 'test-ok' : 'test-fail'}}">
+      <text>{{testResult.message}}</text>
+    </view>
+
+    <view class="api-tips">
+      <text class="tip-title">获取方式：</text>
+      <text class="tip-step">1. 访问 platform.deepseek.com</text>
+      <text class="tip-step">2. 注册/登录账号</text>
+      <text class="tip-step">3. 在 API Keys 页面创建新 Key</text>
+      <text class="tip-step">4. 复制 Key 粘贴到上方输入框</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-header">
+      <text class="section-icon">📊</text>
+      <text class="section-title">功能说明</text>
+    </view>
+    <view class="feature-list">
+      <view class="feature-item">
+        <view class="feature-icon-wrap feature-icon-indigo">
+          <text>📝</text>
+        </view>
+        <view class="feature-text-wrap">
+          <text class="feature-name">个人陈述生成</text>
+          <text class="feature-desc">AI生成3个版本，支持逐段精修</text>
+        </view>
+      </view>
+      <view class="feature-item">
+        <view class="feature-icon-wrap feature-icon-purple">
+          <text>🎤</text>
+        </view>
+        <view class="feature-text-wrap">
+          <text class="feature-name">面试模拟</text>
+          <text class="feature-desc">AI面试官多轮追问，模拟真实场景</text>
+        </view>
+      </view>
+      <view class="feature-item">
+        <view class="feature-icon-wrap feature-icon-amber">
+          <text>🧮</text>
+        </view>
+        <view class="feature-text-wrap">
+          <text class="feature-name">综合分计算</text>
+          <text class="feature-desc">精算综合成绩，逆袭分析</text>
+        </view>
+      </view>
+      <view class="feature-item">
+        <view class="feature-icon-wrap feature-icon-emerald">
+          <text>🤖</text>
+        </view>
+        <view class="feature-text-wrap">
+          <text class="feature-name">AI智能问答</text>
+          <text class="feature-desc">解答一切综评疑问</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-header">
+      <text class="section-icon">ℹ️</text>
+      <text class="section-title">关于</text>
+    </view>
+    <view class="about-list">
+      <view class="about-item">
+        <text class="about-label">应用名称</text>
+        <text class="about-value">综评通</text>
+      </view>
+      <view class="about-item">
+        <text class="about-label">版本</text>
+        <text class="about-value">1.0.0</text>
+      </view>
+      <view class="about-item">
+        <text class="about-label">AI模型</text>
+        <text class="about-value">DeepSeek Chat</text>
+      </view>
+      <view class="about-item">
+        <text class="about-label">数据年份</text>
+        <text class="about-value">2022-2024</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-header">
+      <text class="section-icon">🗑️</text>
+      <text class="section-title">数据管理</text>
+    </view>
+    <button class="btn-outline clear-btn" bindtap="clearAllData">清除本地缓存数据</button>
+    <text class="clear-desc">清除后待办勾选状态等本地数据将重置，API Key 不会被清除</text>
+  </view>
+
+  <view class="footer">
+    <text class="footer-text">综评通 · 上海高考综评AI助手</text>
+    <text class="footer-sub">数据仅供参考，以各校官方公布为准</text>
+  </view>
+</view>

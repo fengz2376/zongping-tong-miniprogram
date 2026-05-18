@@ -1,0 +1,158 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">个人陈述</text>
+    <text class="page-subtitle">针对目标高校定制，500字以内</text>
+  </view>
+
+  <view class="card">
+    <text class="card-label">🎯 目标高校</text>
+    <picker mode="selector" range="{{universityNames}}" bindchange="onUniversityChange">
+      <view class="uni-picker {{form.universityId ? '' : 'uni-picker-empty'}}">
+        <view wx:if="{{selectedUni}}" class="uni-picker-inner">
+          <text class="uni-picker-logo">{{selectedUni.logo}}</text>
+          <view class="uni-picker-info">
+            <text class="uni-picker-name">{{selectedUni.name}}</text>
+            <text class="uni-picker-tag">{{selectedUni.type}} · {{selectedUni.interviewForm}}</text>
+          </view>
+        </view>
+        <text wx:else class="uni-picker-placeholder">请选择目标高校</text>
+        <text class="picker-arrow">▼</text>
+      </view>
+    </picker>
+
+    <view wx:if="{{selectedUni}}" class="uni-insight">
+      <view class="insight-row">
+        <text class="insight-icon">💡</text>
+        <text class="insight-text">{{selectedUni.preferences}}</text>
+      </view>
+      <view class="insight-row">
+        <text class="insight-icon">🎤</text>
+        <text class="insight-text">面试形式：{{selectedUni.interviewForm}}，{{selectedUni.interviewMode}}</text>
+      </view>
+    </view>
+
+    <view class="form-group" style="margin-top: 24rpx;">
+      <text class="form-label">目标专业方向</text>
+      <input class="input-field" value="{{form.major}}" bindinput="onInput" data-field="major" placeholder="如：计算机科学与技术 / 经济学类" />
+    </view>
+
+    <view wx:if="{{selectedUni && selectedUni.majorGroups.length > 0}}" class="form-group">
+      <text class="form-label">所属专业组（可选）</text>
+      <picker mode="selector" range="{{majorGroupNames}}" bindchange="onMajorGroupChange">
+        <view class="input-field picker-field">
+          <text class="{{form.majorGroup ? '' : 'placeholder'}}">{{form.majorGroup || '选择专业组'}}</text>
+          <text class="picker-arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="card-label">📝 学科与选科</text>
+    <view class="form-group">
+      <text class="form-label">选科组合</text>
+      <view class="tag-select">
+        <text wx:for="{{subjectCombos}}" wx:key="index"
+          class="tag-option {{form.subjectCombo === item ? 'tag-active' : ''}}"
+          bindtap="selectSubject" data-value="{{item}}">{{item}}</text>
+      </view>
+    </view>
+    <view class="form-group">
+      <text class="form-label">优势学科</text>
+      <input class="input-field" value="{{form.strongSubjects}}" bindinput="onInput" data-field="strongSubjects" placeholder="如：数学、物理、英语" />
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="card-label">🏆 核心经历</text>
+    <view class="form-group">
+      <text class="form-label">最重要的1-2个成就</text>
+      <textarea class="input-field textarea" value="{{form.keyAchievement}}" bindinput="onInput" data-field="keyAchievement" placeholder="如：全国数学联赛二等奖、独立完成XX课题研究..." auto-height maxlength="-1" />
+    </view>
+    <view class="form-group">
+      <text class="form-label">课题研究或科创经历</text>
+      <textarea class="input-field textarea" value="{{form.research}}" bindinput="onInput" data-field="research" placeholder="如：参与《城市交通流量预测》课题，负责数据建模..." auto-height maxlength="-1" />
+    </view>
+    <view class="form-group">
+      <text class="form-label">社会实践或志愿服务</text>
+      <textarea class="input-field textarea" value="{{form.social}}" bindinput="onInput" data-field="social" placeholder="如：社区防疫志愿者60小时、学生会学习部长..." auto-height maxlength="-1" />
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="card-label">✨ 个人特质</text>
+    <view class="form-group">
+      <text class="form-label">用3个词形容自己</text>
+      <input class="input-field" value="{{form.personality}}" bindinput="onInput" data-field="personality" placeholder="如：执着、好奇、有担当" />
+    </view>
+    <view class="form-group">
+      <text class="form-label">一个能体现你特质的小故事</text>
+      <textarea class="input-field textarea" value="{{form.story}}" bindinput="onInput" data-field="story" placeholder="如：为了搞懂一道物理题，我花了三天查资料做实验，最终独立推导出了结论..." auto-height maxlength="-1" />
+    </view>
+    <view class="form-group">
+      <text class="form-label">兴趣爱好</text>
+      <input class="input-field" value="{{form.hobbies}}" bindinput="onInput" data-field="hobbies" placeholder="如：编程、钢琴、长跑、古典文学" />
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="card-label">🎨 写作风格</text>
+    <view class="style-grid">
+      <view wx:for="{{styles}}" wx:key="id"
+        class="style-item {{form.style === item.id ? 'style-active' : ''}}"
+        bindtap="selectStyle" data-style="{{item.id}}">
+        <text class="style-icon">{{item.icon}}</text>
+        <text class="style-name">{{item.name}}</text>
+        <text class="style-desc">{{item.desc}}</text>
+        <view wx:if="{{form.style === item.id}}" class="style-check">✓</view>
+      </view>
+    </view>
+  </view>
+
+  <button class="btn-primary generate-btn"
+    bindtap="handleGenerate"
+    disabled="{{isGenerating || !form.universityId}}">
+    <view wx:if="{{isGenerating}}" class="flex items-center justify-center gap-8">
+      <view class="spinner"></view>
+      <text style="color: #fff;">AI撰写中...</text>
+    </view>
+    <text wx:else style="color: #fff;">✨ 生成个人陈述</text>
+  </button>
+
+  <view wx:if="{{result}}" class="card result-card">
+    <view class="result-header">
+      <view class="result-meta">
+        <text class="result-uni">{{form.university}}</text>
+        <text class="result-length">{{result.length}}/500字</text>
+      </view>
+      <view class="result-actions">
+        <text class="action-btn" bindtap="handleCopy">📋 复制</text>
+        <text class="action-btn" bindtap="handleDownload">📥 下载</text>
+      </view>
+    </view>
+    <view class="result-body">
+      <text class="result-text">{{result}}</text>
+    </view>
+
+    <view class="refine-section">
+      <text class="refine-label">✏️ 精修调整</text>
+      <text class="refine-hint">告诉AI你想怎么改，如"加入我的志愿者经历""语气再朴实一些"</text>
+      <view class="refine-row">
+        <input class="refine-input" value="{{refineInput}}" bindinput="onRefineInput"
+          placeholder="输入修改要求..." confirm-type="send" bindconfirm="handleRefine" />
+        <button class="btn-primary refine-btn" bindtap="handleRefine"
+          disabled="{{isGenerating || !refineInput}}">
+          <text wx:if="{{isGenerating}}" style="color: #fff;">...</text>
+          <text wx:else style="color: #fff;">✦</text>
+        </button>
+      </view>
+      <view wx:if="{{refineHistory.length > 0}}" class="refine-history">
+        <text wx:for="{{refineHistory}}" wx:key="index" class="refine-tag">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{result}}" class="reset-btn-wrap">
+    <button class="btn-outline" bindtap="resetForm">重新撰写</button>
+  </view>
+</view>

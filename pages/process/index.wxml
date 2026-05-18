@@ -1,0 +1,17 @@
+<view class="page-container">
+  <view wx:if="{{currentPhase}}" class="current-phase-card">
+    <view class="current-phase-left">
+      <view class="current-dot"></view>
+    </view>
+    <view class="current-phase-content">
+      <text class="current-phase-label">当前阶段</text>
+      <text class="current-phase-name">{{currentPhase.title}}</text>
+      <text class="current-phase-date">{{currentPhase.dateRange}}</text>
+    </view>
+  </view>
+
+  <view class="timeline-section">
+    <text class="section-title">流程时间线</text>
+    <timeline phases="{{phases}}" currentPhaseId="{{currentPhaseId}}"></timeline>
+  </view>
+</view>

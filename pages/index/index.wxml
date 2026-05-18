@@ -1,0 +1,77 @@
+<view class="page-container">
+  <view class="header">
+    <view class="header-top">
+      <view>
+        <text class="app-title gradient-primary-text">综评通</text>
+        <text class="app-subtitle">上海高考综评AI助手</text>
+      </view>
+      <view class="header-profile" bindtap="goToPage" data-url="/pages/profile/index">
+        <text class="profile-icon">👤</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{currentPhase}}" class="phase-banner" bindtap="goToPage" data-url="/pages/process/index">
+    <view class="phase-dot"></view>
+    <view class="phase-content">
+      <text class="phase-label">当前阶段</text>
+      <text class="phase-name">{{currentPhase.title}}</text>
+    </view>
+    <text class="phase-arrow">→</text>
+  </view>
+
+  <view class="nav-grid">
+    <view class="nav-card nav-process" bindtap="goToPage" data-url="/pages/process/index">
+      <view class="nav-icon-wrap icon-process">
+        <text class="nav-emoji">📋</text>
+      </view>
+      <view class="nav-text">
+        <text class="nav-name">综评流程</text>
+        <text class="nav-desc">时间线与待办</text>
+      </view>
+      <text class="nav-arrow">→</text>
+    </view>
+
+    <view class="nav-card nav-resources" bindtap="goToPage" data-url="/pages/resources/index">
+      <view class="nav-icon-wrap icon-resources">
+        <text class="nav-emoji">📚</text>
+      </view>
+      <view class="nav-text">
+        <text class="nav-name">资料库</text>
+        <text class="nav-desc">高校·政策·分数线</text>
+      </view>
+      <text class="nav-arrow">→</text>
+    </view>
+  </view>
+
+  <view class="section-title-bar">
+    <text class="section-title">AI 工具</text>
+  </view>
+
+  <view class="tools">
+    <view class="tool-item" bindtap="goToPage" data-url="/pages/personal-statement/index">
+      <view class="tool-icon icon-indigo">📝</view>
+      <text class="tool-name">个人陈述</text>
+    </view>
+    <view class="tool-item" bindtap="goToPage" data-url="/pages/interview/index">
+      <view class="tool-icon icon-purple">🎤</view>
+      <text class="tool-name">面试模拟</text>
+    </view>
+    <view class="tool-item" bindtap="goToPage" data-url="/pages/calculator/index">
+      <view class="tool-icon icon-emerald">🧮</view>
+      <text class="tool-name">分数计算</text>
+    </view>
+    <view class="tool-item" bindtap="goToPage" data-url="/pages/ai-chat/index">
+      <view class="tool-icon icon-amber">🤖</view>
+      <text class="tool-name">问AI</text>
+    </view>
+  </view>
+
+  <view class="insight-card">
+    <text class="insight-number">面试1分 ≈ 高考5.7分</text>
+    <text class="insight-desc">综合成绩 = 高考成绩÷660×850 + 校测成绩（满分150分）</text>
+    <view class="insight-action" bindtap="goToPage" data-url="/pages/interview/index">
+      <text>开始面试训练 →</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,33 @@
+<view class="timeline">
+  <view class="timeline-item" wx:for="{{processedPhases}}" wx:key="id">
+    <view class="timeline-left">
+      <view class="timeline-dot {{item.status === 'completed' ? 'dot-completed' : item.status === 'current' ? 'dot-current dot-current-' + item.color : 'dot-upcoming'}}">
+        <text wx:if="{{item.status === 'completed'}}">✓</text>
+        <text wx:else>{{item.icon}}</text>
+      </view>
+      <view wx:if="{{!item.isLast}}" class="timeline-line {{item.status === 'completed' ? 'line-completed' : 'line-upcoming'}}"></view>
+    </view>
+    <view class="timeline-right {{item.status === 'upcoming' ? 'opacity-half' : ''}}">
+      <view class="flex items-center gap-8" style="flex-wrap: wrap;">
+        <text class="phase-title {{item.status === 'completed' ? 'title-completed' : item.status === 'current' ? 'title-current title-current-' + item.color : 'title-upcoming'}}">{{item.title}}</text>
+        <text wx:if="{{item.status === 'current'}}" class="phase-tag phase-tag-{{item.color}}">进行中</text>
+        <text wx:if="{{item.status === 'upcoming'}}" class="countdown-tag">{{item.daysUntil}}天后</text>
+      </view>
+      <text class="phase-date text-gray-400">{{item.dateRange}}</text>
+      <text class="phase-desc text-gray-600">{{item.description}}</text>
+
+      <view wx:if="{{item.status === 'current'}}" class="phase-tasks phase-tasks-{{item.color}}">
+        <text class="tasks-label text-gray-500">待办事项：</text>
+        <view class="task-item" wx:for="{{item.tasks}}" wx:for-item="task" wx:for-index="ti" wx:key="ti">
+          <view class="task-checkbox" catchtap="toggleTask" data-phase-id="{{item.id}}" data-task-index="{{ti}}">
+            <view class="checkbox-inner {{item.checkedTasks[ti] ? 'checked' : ''}}"></view>
+          </view>
+          <text class="task-text {{item.checkedTasks[ti] ? 'task-done' : ''}}">{{task}}</text>
+        </view>
+        <view class="task-tips">
+          <text class="text-gray-500" style="font-size: 24rpx;">💡 {{item.tips}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,29 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/personal-statement/index",
+    "pages/interview/index",
+    "pages/calculator/index",
+    "pages/resources/index",
+    "pages/ai-chat/index",
+    "pages/profile/index",
+    "pages/university-detail/index",
+    "pages/process/index"
+  ],
+  "subPackages": [],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4f46e5",
+    "navigationBarTitleText": "综评通",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f6fa"
+  },
+  "networkTimeout": {
+    "request": 90000,
+    "connectSocket": 90000,
+    "uploadFile": 90000,
+    "downloadFile": 90000
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

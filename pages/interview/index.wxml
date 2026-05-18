@@ -1,0 +1,197 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">面试模拟训练营</text>
+    <text class="page-subtitle">模拟真实综评面试场景，AI面试官多轮追问</text>
+  </view>
+
+  <view class="tab-bar">
+    <scroll-view scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="tab-bar-inner">
+        <view
+          wx:for="{{tabs}}"
+          wx:key="id"
+          class="tab-item {{tab === item.id ? 'tab-active' : ''}}"
+          bindtap="switchTab"
+          data-tab="{{item.id}}"
+        >
+          <text>{{item.label}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{tab === 'practice'}}">
+    <view class="card">
+      <view class="form-group">
+        <text class="form-label">目标高校</text>
+        <picker mode="selector" range="{{universityNames}}" bindchange="onUniChange">
+          <view class="input-field picker-field">
+            <text class="{{selectedUniName ? '' : 'placeholder'}}">{{selectedUniName || '选择面试高校'}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+      <view class="form-group">
+        <text class="form-label">你的个人陈述（可选，AI将基于此提问）</text>
+        <textarea
+          class="input-field textarea"
+          value="{{studentPS}}"
+          bindinput="onPSInput"
+          placeholder="粘贴你的个人陈述，AI面试官会针对性提问..."
+          auto-height
+          maxlength="-1"
+        />
+      </view>
+      <button
+        class="btn-primary"
+        bindtap="handleStartInterview"
+        disabled="{{isLoading || !selectedUni}}"
+      >
+        <text style="color: #fff;">{{isLoading ? '准备中...' : '开始AI模拟面试'}}</text>
+      </button>
+    </view>
+
+    <view wx:if="{{chatMessages.length > 0}}" class="card chat-card">
+      <scroll-view class="chat-scroll" scroll-y scroll-into-view="{{scrollToId}}" scroll-with-animation enhanced show-scrollbar="{{false}}">
+        <view wx:for="{{chatMessages}}" wx:key="index" id="chat-msg-{{index}}">
+          <view class="msg-row {{item.role === 'assistant' ? 'msg-left' : 'msg-right'}}">
+            <view class="msg-bubble {{item.role === 'assistant' ? 'bubble-assistant' : 'bubble-user'}}">
+              <text class="msg-text {{item.role === 'user' ? 'text-white' : ''}}">{{item.content}}</text>
+            </view>
+          </view>
+        </view>
+        <view wx:if="{{isLoading}}" class="msg-left">
+          <view class="bubble-assistant loading-bubble">
+            <view class="loading-dots">
+              <view class="loading-dot"></view>
+              <view class="loading-dot"></view>
+              <view class="loading-dot"></view>
+            </view>
+          </view>
+        </view>
+        <view id="chat-bottom"></view>
+      </scroll-view>
+      <view class="chat-input-area">
+        <input
+          class="input-field chat-input"
+          value="{{input}}"
+          bindinput="onChatInput"
+          bindconfirm="handleSendAnswer"
+          confirm-type="send"
+          placeholder="输入你的回答..."
+          disabled="{{isLoading}}"
+        />
+        <button class="btn-primary send-btn" bindtap="handleSendAnswer" disabled="{{!input || isLoading}}">
+          <text style="color: #fff;">发送</text>
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{tab === 'guide'}}">
+    <view class="space-y">
+      <view wx:for="{{universities}}" wx:key="id" class="card guide-card {{item.type === '985' ? 'type-985' : 'type-211'}}">
+        <view class="flex items-center justify-between" style="margin-bottom: 16rpx;">
+          <text class="font-semibold text-gray-800" style="font-size: 28rpx;">{{item.name}}</text>
+          <text class="tag {{item.type === '985' ? 'tag-orange' : 'tag-blue'}}" style="font-size: 20rpx;">{{item.type}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label text-gray-400">面试形式</text>
+          <text class="info-value text-gray-700 font-medium">{{item.interviewForm}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label text-gray-400">面试时长</text>
+          <text class="info-value text-gray-700">{{item.interviewDuration}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label text-gray-400">面试模式</text>
+          <text class="info-value text-gray-700" style="max-width: 60%; text-align: right;">{{item.interviewMode}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label text-gray-400">招生偏好</text>
+          <text class="info-value text-gray-700" style="max-width: 60%; text-align: right;">{{item.preferences}}</text>
+        </view>
+        <view class="flex flex-wrap gap-8" style="margin-top: 12rpx;">
+          <text wx:for="{{item.features}}" wx:for-item="f" wx:for-index="fi" wx:key="fi" class="tag tag-purple" style="font-size: 20rpx;">{{f}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{tab === 'questions'}}">
+    <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="category-tags">
+        <view
+          class="category-tag {{selectedCategory === 'all' ? 'category-active' : ''}}"
+          bindtap="selectCategory"
+          data-cat="all"
+        >
+          <text>全部</text>
+        </view>
+        <view
+          wx:for="{{categories}}"
+          wx:key="id"
+          class="category-tag {{selectedCategory === item.id ? 'category-active' : ''}}"
+          bindtap="selectCategory"
+          data-cat="{{item.id}}"
+        >
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="space-y">
+      <view wx:for="{{filteredQuestions}}" wx:key="id" class="card question-card cat-{{item.category}}">
+        <view class="flex items-center gap-8" style="margin-bottom: 8rpx; padding-left: 12rpx;">
+          <text class="tag tag-blue" style="font-size: 20rpx;">{{item.categoryName}}</text>
+        </view>
+        <text class="font-medium text-gray-800" style="font-size: 28rpx; display: block; margin-bottom: 8rpx; padding-left: 12rpx;">{{item.question}}</text>
+        <text class="text-gray-500" style="font-size: 24rpx; padding-left: 12rpx;">💡 {{item.tip}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{tab === 'skills'}}">
+    <view class="space-y" style="margin-bottom: 32rpx;">
+      <text class="section-title">三种面试形式应对策略</text>
+      <view wx:for="{{skills.forms}}" wx:key="type" class="card">
+        <text class="font-semibold text-gray-800" style="font-size: 28rpx; display: block; margin-bottom: 4rpx;">{{item.name}}（{{item.type}}）</text>
+        <text class="text-gray-500" style="font-size: 24rpx; display: block; margin-bottom: 16rpx;">{{item.description}}</text>
+        <view wx:for="{{item.tips}}" wx:for-item="tip" wx:for-index="ti" wx:key="ti" class="tip-item">
+          <text class="tip-check">✓</text>
+          <text class="text-gray-600" style="font-size: 24rpx;">{{tip}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="space-y" style="margin-bottom: 32rpx;">
+      <text class="section-title">面试官考察维度</text>
+      <view wx:for="{{skills.dimensions}}" wx:key="name" class="card flex items-center justify-between">
+        <view style="flex: 1;">
+          <text class="font-medium text-gray-800" style="font-size: 28rpx; display: block;">{{item.name}}</text>
+          <text class="text-gray-400" style="font-size: 24rpx; display: block; margin-top: 4rpx;">{{item.description}}</text>
+        </view>
+        <text class="tag {{item.weight === '高' ? 'tag-red' : item.weight === '中高' ? 'tag-orange' : 'tag-blue'}}" style="font-size: 20rpx;">重要性：{{item.weight}}</text>
+      </view>
+    </view>
+
+    <view class="card" style="background: linear-gradient(135deg, #eef2ff, #faf5ff); border: 2rpx solid #e0e7ff;">
+      <text class="font-semibold text-primary" style="font-size: 28rpx; display: block; margin-bottom: 16rpx;">面试通用框架：STAR法则</text>
+      <view class="star-item">
+        <text class="text-primary font-medium">S - Situation</text>
+        <text class="text-gray-600" style="font-size: 28rpx;"> 情境：描述事情发生的背景</text>
+      </view>
+      <view class="star-item">
+        <text class="text-primary font-medium">T - Task</text>
+        <text class="text-gray-600" style="font-size: 28rpx;"> 任务：说明你面临的任务或挑战</text>
+      </view>
+      <view class="star-item">
+        <text class="text-primary font-medium">A - Action</text>
+        <text class="text-gray-600" style="font-size: 28rpx;"> 行动：描述你采取的具体行动</text>
+      </view>
+      <view class="star-item">
+        <text class="text-primary font-medium">R - Result</text>
+        <text class="text-gray-600" style="font-size: 28rpx;"> 结果：展示取得的成果和反思</text>
+      </view>
+    </view>
+  </view>
+</view>
