@@ -77,7 +77,7 @@
         </view>
         <view class="feature-text-wrap">
           <text class="feature-name">个人陈述生成</text>
-          <text class="feature-desc">AI生成3个版本，支持逐段精修</text>
+          <text class="feature-desc">针对目标高校定制，去AI化撰写</text>
         </view>
       </view>
       <view class="feature-item">
@@ -130,7 +130,7 @@
       </view>
       <view class="about-item">
         <text class="about-label">数据年份</text>
-        <text class="about-value">2022-2024</text>
+        <text class="about-value">2022-2025</text>
       </view>
     </view>
   </view>

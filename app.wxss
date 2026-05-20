@@ -134,20 +134,27 @@ view, text, scroll-view, input, textarea, button, image {
 
 .input-field {
   width: 100%;
-  border: 2rpx solid #e5e7f0;
+  border: 2rpx solid #d1d5e0;
   border-radius: 20rpx;
-  padding: 26rpx 32rpx;
-  font-size: 28rpx;
-  background: #f8f9fc;
+  padding: 28rpx 32rpx;
+  font-size: 30rpx;
+  background: #ffffff;
   color: #1a1a2e;
-  line-height: 1.5;
-  transition: border-color 0.2s, background 0.2s;
+  line-height: 1.6;
+  font-weight: 500;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 .input-field:focus {
-  border-color: #818cf8;
+  border-color: #6366f1;
   background: #ffffff;
-  box-shadow: 0 0 0 4rpx rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 6rpx rgba(99, 102, 241, 0.12);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #b0b4c8;
+  font-weight: 400;
 }
 
 .tag {

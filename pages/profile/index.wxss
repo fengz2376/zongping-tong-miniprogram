@@ -105,19 +105,20 @@
 .api-key-input {
   flex: 1;
   height: 84rpx;
-  border: 2rpx solid #e5e7f0;
+  border: 2rpx solid #d1d5e0;
   border-radius: 24rpx;
   padding: 0 28rpx;
-  font-size: 28rpx;
-  background: #f8f9fc;
+  font-size: 30rpx;
+  background: #ffffff;
   color: #1a1a2e;
+  font-weight: 500;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .api-key-input:focus {
-  border-color: #818cf8;
+  border-color: #6366f1;
   background: #ffffff;
-  box-shadow: 0 0 0 4rpx rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 6rpx rgba(99, 102, 241, 0.12);
 }
 
 .eye-btn {
