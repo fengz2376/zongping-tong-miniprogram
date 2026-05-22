@@ -36,11 +36,11 @@
 }
 
 .form-label {
-  font-size: 24rpx;
-  color: #8b8fa3;
+  font-size: 28rpx;
+  color: #4a4d64;
   display: block;
-  margin-bottom: 8rpx;
-  font-weight: 500;
+  margin-bottom: 12rpx;
+  font-weight: 600;
 }
 
 .picker-field {
@@ -51,7 +51,7 @@
 
 .placeholder { color: #a0a3bd; }
 .picker-arrow { font-size: 20rpx; color: #a0a3bd; }
-.textarea { min-height: 160rpx; }
+.textarea { min-height: 200rpx; padding: 28rpx 32rpx; }
 
 .chat-card {
   display: flex;
@@ -73,6 +73,10 @@
 
 .chat-input {
   flex: 1;
+  min-height: 80rpx;
+  padding: 24rpx 28rpx;
+  font-size: 30rpx;
+  font-weight: 500;
 }
 
 .send-btn {
@@ -118,7 +122,7 @@
 }
 
 .msg-text {
-  font-size: 28rpx;
+  font-size: 30rpx;
   line-height: 1.7;
   color: #2d3047;
   white-space: pre-wrap;

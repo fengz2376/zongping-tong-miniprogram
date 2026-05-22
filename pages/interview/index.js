@@ -94,7 +94,7 @@ Page({
       ],
       temperature: 0.8,
       max_tokens: 2000,
-      timeout: 60000
+      timeout: 90000
     }).then(function (content) {
       that.setData({
         chatMessages: [{ role: 'assistant', content: content.trim() || '同学你好，欢迎参加综评面试。' }],
@@ -139,7 +139,7 @@ Page({
       messages: apiMessages,
       temperature: 0.8,
       max_tokens: 2000,
-      timeout: 60000
+      timeout: 90000
     }).then(function (content) {
       var assistantMsg = { role: 'assistant', content: content.trim() || '好的，我们继续。' }
       that.setData({

@@ -16,51 +16,72 @@ function deepseekChat(options) {
 
   var apiKey = app.globalData.deepseekApiKey
   var baseUrl = app.globalData.deepseekBaseUrl
+  var retries = options.retries !== undefined ? options.retries : 1
 
   return new Promise(function (resolve, reject) {
     _requestInFlight = true
-    var timeout = options.timeout || 60000
-    var requestTask = wx.request({
-      url: baseUrl + '/chat/completions',
-      method: 'POST',
-      timeout: timeout,
-      header: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + apiKey
-      },
-      data: {
-        model: options.model || 'deepseek-chat',
-        temperature: options.temperature || 0.7,
-        max_tokens: options.max_tokens || 2048,
-        messages: options.messages,
-        stream: false
-      },
-      success: function (res) {
-        _requestInFlight = false
-        if (res.statusCode === 200 && res.data && res.data.choices && res.data.choices.length > 0) {
-          resolve(res.data.choices[0].message.content || '')
-        } else if (res.statusCode === 401) {
-          app.globalData.apiReady = false
-          reject(new Error('API Key 无效'))
-        } else if (res.statusCode === 429) {
-          reject(new Error('请求过于频繁'))
-        } else if (res.statusCode === 402) {
-          app.globalData.apiReady = false
-          reject(new Error('API余额不足'))
-        } else {
-          reject(new Error('请求失败'))
+    var timeout = options.timeout || 90000
+    var retryCount = 0
+
+    var progressTimer = setTimeout(function () {
+      wx.showToast({ title: 'AI思考中，请稍候...', icon: 'none', duration: 3000 })
+    }, 30000)
+
+    function attemptRequest() {
+      var requestTask = wx.request({
+        url: baseUrl + '/chat/completions',
+        method: 'POST',
+        timeout: timeout,
+        header: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + apiKey
+        },
+        data: {
+          model: options.model || 'deepseek-chat',
+          temperature: options.temperature || 0.7,
+          max_tokens: options.max_tokens || 2048,
+          messages: options.messages,
+          stream: false
+        },
+        success: function (res) {
+          _requestInFlight = false
+          clearTimeout(progressTimer)
+          wx.hideToast()
+          if (res.statusCode === 200 && res.data && res.data.choices && res.data.choices.length > 0) {
+            resolve(res.data.choices[0].message.content || '')
+          } else if (res.statusCode === 401) {
+            app.globalData.apiReady = false
+            reject(new Error('API Key 无效'))
+          } else if (res.statusCode === 429) {
+            reject(new Error('请求过于频繁'))
+          } else if (res.statusCode === 402) {
+            app.globalData.apiReady = false
+            reject(new Error('API余额不足'))
+          } else {
+            reject(new Error('请求失败'))
+          }
+        },
+        fail: function (err) {
+          var errMsg = (err && err.errMsg) || ''
+          if (errMsg.indexOf('timeout') !== -1 && retryCount < retries) {
+            retryCount++
+            wx.showToast({ title: '超时，第' + (retryCount + 1) + '次尝试...', icon: 'none', duration: 2000 })
+            attemptRequest()
+            return
+          }
+          _requestInFlight = false
+          clearTimeout(progressTimer)
+          wx.hideToast()
+          if (errMsg.indexOf('timeout') !== -1) {
+            reject(new Error('请求超时，请重试'))
+          } else {
+            reject(new Error('网络不可用，已切换本地模式'))
+          }
         }
-      },
-      fail: function (err) {
-        _requestInFlight = false
-        var errMsg = (err && err.errMsg) || ''
-        if (errMsg.indexOf('timeout') !== -1) {
-          reject(new Error('请求超时，请重试'))
-        } else {
-          reject(new Error('网络不可用，已切换本地模式'))
-        }
-      }
-    })
+      })
+    }
+
+    attemptRequest()
   })
 }
 

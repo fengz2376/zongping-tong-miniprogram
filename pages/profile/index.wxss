@@ -104,7 +104,7 @@
 
 .api-key-input {
   flex: 1;
-  height: 84rpx;
+  height: 92rpx;
   border: 2rpx solid #d1d5e0;
   border-radius: 24rpx;
   padding: 0 28rpx;
@@ -122,8 +122,8 @@
 }
 
 .eye-btn {
-  width: 84rpx;
-  height: 84rpx;
+  width: 92rpx;
+  height: 92rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,7 +168,7 @@
 }
 
 .status-text {
-  font-size: 24rpx;
+  font-size: 26rpx;
 }
 
 .status-ok .status-text {

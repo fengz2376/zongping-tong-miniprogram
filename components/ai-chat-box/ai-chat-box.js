@@ -93,7 +93,7 @@ Component({
         messages: apiMessages,
         temperature: 0.7,
         max_tokens: 2048,
-        timeout: 60000
+        timeout: 90000
       }).then(function (content) {
         var assistantMsg = {
           id: (Date.now() + 1).toString(),

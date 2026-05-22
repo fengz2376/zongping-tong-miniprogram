@@ -20,11 +20,11 @@
 
 .search-input {
   width: 100%;
-  height: 84rpx;
+  height: 88rpx;
   border: 2rpx solid #e5e7f0;
   border-radius: 42rpx;
   padding: 0 32rpx 0 68rpx;
-  font-size: 28rpx;
+  font-size: 30rpx;
   background: #ffffff;
   box-shadow: 0 2rpx 12rpx rgba(99, 102, 241, 0.06);
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -202,7 +202,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12rpx 24rpx;
-  font-size: 24rpx;
+  font-size: 26rpx;
 }
 
 .info-cell {
@@ -217,6 +217,9 @@
 
 .info-value {
   color: #4a4d64;
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
 }
 
 .full-width {
@@ -391,10 +394,12 @@
 
 .faq-a-text {
   font-size: 28rpx;
-  color: #6b7085;
-  line-height: 1.7;
+  color: #4a4d64;
+  line-height: 1.8;
   padding-top: 16rpx;
   border-top: 1rpx solid #eef0f6;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .policy-card {

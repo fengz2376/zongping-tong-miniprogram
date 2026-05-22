@@ -39,7 +39,7 @@
 }
 
 .hint-text {
-  font-size: 24rpx;
+  font-size: 26rpx;
   color: #4a4d64;
   line-height: 1.7;
 }
@@ -72,7 +72,7 @@
 }
 
 .quick-q-text {
-  font-size: 24rpx;
+  font-size: 26rpx;
   color: #4f46e5;
   font-weight: 500;
 }

@@ -162,7 +162,7 @@ Page({
       ],
       temperature: 0.85,
       max_tokens: 1500,
-      timeout: 90000
+      timeout: 120000
     }).then(function (content) {
       that.setData({
         result: content.trim(),
@@ -206,7 +206,7 @@ Page({
       ],
       temperature: 0.8,
       max_tokens: 1500,
-      timeout: 60000
+      timeout: 90000
     }).then(function (content) {
       var newContent = content.trim() || currentContent
       that.setData({

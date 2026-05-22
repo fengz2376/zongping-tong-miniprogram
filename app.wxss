@@ -136,12 +136,13 @@ view, text, scroll-view, input, textarea, button, image {
   width: 100%;
   border: 2rpx solid #d1d5e0;
   border-radius: 20rpx;
-  padding: 28rpx 32rpx;
+  padding: 32rpx 32rpx;
   font-size: 30rpx;
   background: #ffffff;
   color: #1a1a2e;
   line-height: 1.6;
   font-weight: 500;
+  min-height: 88rpx;
   transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 

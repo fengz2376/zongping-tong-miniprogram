@@ -19,10 +19,10 @@
     "backgroundColor": "#f5f6fa"
   },
   "networkTimeout": {
-    "request": 90000,
-    "connectSocket": 90000,
-    "uploadFile": 90000,
-    "downloadFile": 90000
+    "request": 120000,
+    "connectSocket": 120000,
+    "uploadFile": 120000,
+    "downloadFile": 120000
   },
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"

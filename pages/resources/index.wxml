@@ -112,10 +112,10 @@
         <view class="list-item"><text class="list-num">2.</text><text style="font-size: 28rpx; color: #4a4d64;">高校初审：6月3日公布初审通过名单</text></view>
         <view class="list-item"><text class="list-num">3.</text><text style="font-size: 28rpx; color: #4a4d64;">参加高考：6月7日-9日</text></view>
         <view class="list-item"><text class="list-num">4.</text><text style="font-size: 28rpx; color: #4a4d64;">高考出分：6月23日</text></view>
-        <view class="list-item"><text class="list-num">5.</text><text style="font-size: 28rpx; color: #4a4d64;">志愿填报：6月27日-7月1日填报综评批次（限1所）</text></view>
+        <view class="list-item"><text class="list-num">5.</text><text style="font-size: 28rpx; color: #4a4d64;">志愿填报：7月1日-2日填报综评批次（4个平行院校专业组）</text></view>
         <view class="list-item"><text class="list-num">6.</text><text style="font-size: 28rpx; color: #4a4d64;">校测入围：各校公布入围名单</text></view>
         <view class="list-item"><text class="list-num">7.</text><text style="font-size: 28rpx; color: #4a4d64;">校测面试：7月6日-7日</text></view>
-        <view class="list-item"><text class="list-num">8.</text><text style="font-size: 28rpx; color: #4a4d64;">录取公布：7月10日-15日</text></view>
+        <view class="list-item"><text class="list-num">8.</text><text style="font-size: 28rpx; color: #4a4d64;">录取公布：7月9日</text></view>
       </view>
 
       <view class="policy-card">

@@ -50,8 +50,8 @@
 }
 
 .uni-picker-tag {
-  font-size: 22rpx;
-  color: #8b8fa3;
+  font-size: 24rpx;
+  color: #6b7085;
   display: block;
   margin-top: 4rpx;
 }
@@ -87,9 +87,9 @@
 }
 
 .insight-text {
-  font-size: 24rpx;
+  font-size: 26rpx;
   color: #4a4d64;
-  line-height: 1.5;
+  line-height: 1.6;
   flex: 1;
 }
 
@@ -112,15 +112,16 @@
 }
 
 .form-label {
-  font-size: 24rpx;
-  color: #6b7085;
+  font-size: 28rpx;
+  color: #4a4d64;
   display: block;
-  margin-bottom: 10rpx;
-  font-weight: 500;
+  margin-bottom: 12rpx;
+  font-weight: 600;
 }
 
 .textarea {
-  min-height: 120rpx;
+  min-height: 180rpx;
+  padding: 28rpx 32rpx;
 }
 
 .picker-field {
@@ -217,8 +218,8 @@
 }
 
 .style-desc {
-  font-size: 20rpx;
-  color: #8b8fa3;
+  font-size: 22rpx;
+  color: #6b7085;
   display: block;
   margin-top: 6rpx;
   line-height: 1.4;
@@ -299,8 +300,8 @@
 }
 
 .result-text {
-  font-size: 28rpx;
-  line-height: 1.9;
+  font-size: 30rpx;
+  line-height: 2;
   color: #2d3047;
   white-space: pre-wrap;
   word-break: break-all;
@@ -321,11 +322,11 @@
 }
 
 .refine-hint {
-  font-size: 22rpx;
-  color: #8b8fa3;
+  font-size: 24rpx;
+  color: #6b7085;
   display: block;
   margin-bottom: 16rpx;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .refine-row {
@@ -338,12 +339,13 @@
   flex: 1;
   border: 2rpx solid #d1d5e0;
   border-radius: 40rpx;
-  padding: 22rpx 32rpx;
+  padding: 24rpx 32rpx;
   font-size: 30rpx;
   background: #ffffff;
   color: #1a1a2e;
   font-weight: 500;
   line-height: 1.4;
+  min-height: 80rpx;
   transition: border-color 0.2s, background 0.2s;
 }
 
